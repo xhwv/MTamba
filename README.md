@@ -1,4 +1,5 @@
 # MTamba
+
 MTamba is a multi-task deep learning network designed for glioma segmentation, IDH genotyping, and tumor grading. We propose a novel architecture that integrates various MRI modalities to handle the complexity and heterogeneity of gliomas. The network is equipped with modules to explore the mismatch between T2 and FLAIR images, as well as multi-modal MRI features, for enhanced tumor diagnosis and grading.
 
 **Overview**
@@ -30,6 +31,7 @@ BraTS2020 Dataset
 Access the BraTS2020 dataset at: https://www.med.upenn.edu/cbica/brats2020/data.html 
 
 Requirements
+
 torch>=1.10.0
 monai>=0.9.0
 torchvision>=0.11.0
@@ -39,7 +41,9 @@ pickle5>=0.0.11
 
 
 Usage
+
 Training
+
 Prepare the dataset (UCSF-PDGM or BraTS2020) and place it in the appropriate directory.
 
 To start training, run the following command:
