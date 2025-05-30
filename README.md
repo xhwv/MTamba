@@ -30,6 +30,10 @@ Access the UCSF-PDGM dataset at: [UCSF-PDGM Dataset.](https://www.cancerimaginga
 BraTS2020 Dataset
 Access the BraTS2020 dataset at: https://www.med.upenn.edu/cbica/brats2020/data.html 
 
+**The visualization of SEAM**
+![image](https://github.com/user-attachments/assets/ec6025ea-e285-49ad-aac6-373e89f13063)
+
+
 Requirements
 
 torch>=1.10.0
