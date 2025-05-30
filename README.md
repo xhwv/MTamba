@@ -32,7 +32,8 @@ Access the BraTS2020 dataset at: https://www.med.upenn.edu/cbica/brats2020/data.
 
 **The visualization of SEAM**
 We explored T2 and FLAIR images from UCSF-PDGM 188. We visualized both the direct T2 minus FLAIR (w/o SEAM) and the SEAM-enhanced images. The feature value ranges in the visualizations of both w/o SEAM and SEAM are kept consistent. We observed that using SEAM allows for better exploration of tumor-related information.
-![image](https://github.com/user-attachments/assets/ec6025ea-e285-49ad-aac6-373e89f13063)
+![692321bb3e5297b47bc8714fb97a13e](https://github.com/user-attachments/assets/04263b3e-b806-4441-98c8-be96e15db4e2)
+
 
 
 Requirements
