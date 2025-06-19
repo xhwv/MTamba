@@ -37,7 +37,7 @@ parser.add_argument('--description',
                     type=str)
 
 # DataSet Information
-parser.add_argument('--root', default='/home/lixinyu/mamba_idh_grade', type=str)
+parser.add_argument('--root', default='/home/mamba_idh_grade', type=str)
 
 parser.add_argument('--train_dir', default='train', type=str)
 
