@@ -201,7 +201,7 @@ def main_worker():
 
     start_time = time.time()
     torch.set_grad_enabled(True)
-    # 假设你的其他代码保持不变
+   
     if args.local_rank == 0:
         roott = "/home/model"
         checkpoint_dir = os.path.join(roott, 'checkpoint', args.experiment + args.date)
@@ -256,8 +256,6 @@ def main_worker():
                 wt_dice = dice_coeff(pred_labels[idx], target[idx], [1, 2, 4])
                 tc_dice = dice_coeff(pred_labels[idx], target[idx], [1, 4])
                 et_dice = dice_coeff(pred_labels[idx], target[idx], [4])
-                if wt_dice==0 and tc_dice==0 and et_dice==0:
-                    ucsf.append(name[idx])
                 dice_2s.append(dice_2.item())
                 dice_1s.append(dice_1.item())
                 dice_0s.append(dice_0.item())
@@ -503,25 +501,6 @@ def expand_target(x, n_class, mode='softmax'):
         xx[:, 3, :, :, :] = (x == 3)
     return xx
 
-def Dual_focal_loss(output, target):
-
-    target[target == 4] = 3  # 转换标签 4 为 3
-    target = expand_target(target, n_class=output.size()[1])  # 扩展目标标签为 one-hot 编码
-
-    # 排除第 0 通道，不进行计算
-    output = output[:, 1:, :, :, :]  # 保留通道 1, 2, 3
-    target = target[:, 1:, :, :, :]  # 保留通道 1, 2, 3
-
-    # 重新排列维度，方便后续计算
-    target = target.permute(1, 0, 2, 3, 4).contiguous()
-    output = output.permute(1, 0, 2, 3, 4).contiguous()
-
-    # 展平张量以进行逐像素损失计算
-    target = target.view(3, -1)  # 只保留 3 个通道
-    output = output.view(3, -1)  # 只保留 3 个通道
-
-    # 计算 focal 损失，忽略第 0 通道
-    return -(F.log_softmax((1 - (target - output) ** 2), 0)).mean()
 
 class FocalLoss(nn.Module):
     def __init__(self, alpha=1, gamma=2, weight=None, reduction='mean'):
