@@ -11,17 +11,6 @@ def pkload(fname):
     with open(fname, 'rb') as f:
         return pickle.load(f)
 
-
-class MaxMinNormalization(object):
-    def __call__(self, sample):
-        image = sample['image']
-        label = sample['label']
-        Max = np.max(image)
-        Min = np.min(image)
-        image = (image - Min) / (Max - Min)
-        return {'image': image, 'label': label}
-
-
 class Random_Flip(object):
     def __call__(self, sample):
         image = sample['image']
@@ -36,7 +25,7 @@ class Random_Flip(object):
             image = np.flip(image, 2).copy()
             label = np.flip(label, 2).copy()
 
-        return {'image': image, 'label': label, 'idh': sample['idh'], 'radiomic': sample['radiomic']}
+        return {'image': image, 'label': label, 'idh': sample['idh'], 'grade': sample['grade']}
 
 
 class Crop_val(object):
@@ -83,7 +72,7 @@ class Crop_val(object):
                             constant_values=0)
         label_crop = np.pad(label_crop, ((0, pad_h), (0, pad_w), (0, pad_d)), mode='constant', constant_values=0)
 
-        return {'image': image_crop, 'label': label_crop, 'idh': sample['idh'], 'radiomic': sample['radiomic']}
+        return {'image': image_crop, 'label': label_crop, 'idh': sample['idh'], 'grade': sample['grade']}
 
 
 class Random_Crop(object):
@@ -118,7 +107,7 @@ class Random_Crop(object):
                             constant_values=0)
         label_crop = np.pad(label_crop, ((0, pad_h), (0, pad_w), (0, pad_d)), mode='constant', constant_values=0)
 
-        return {'image': image_crop, 'label': label_crop, 'idh': sample['idh'], 'radiomic': sample['radiomic']}
+        return {'image': image_crop, 'label': label_crop, 'idh': sample['idh'], 'grade': sample['grade']}
 
 class Random_intencity_shift(object):
     def __call__(self, sample, factor=0.1):
@@ -130,7 +119,7 @@ class Random_intencity_shift(object):
 
         image = image*scale_factor+shift_factor
 
-        return {'image': image, 'label': label, 'idh': sample['idh'], 'radiomic': sample['radiomic']}
+        return {'image': image, 'label': label, 'idh': sample['idh'], 'grade': sample['grade']}
 
 
 class Random_rotate(object):
@@ -141,7 +130,7 @@ class Random_rotate(object):
         angle = round(np.random.uniform(-10, 10), 2)
         image = ndimage.rotate(image, angle, axes=(0, 1), reshape=False)
         label = ndimage.rotate(label, angle, axes=(0, 1), reshape=False)
-        return {'image': image, 'label': label,'idh':sample['idh'], 'radiomic':sample['radiomic']}
+        return {'image': image, 'label': label,'idh':sample['idh'], 'grade':sample['grade']}
 
 
 
@@ -160,17 +149,16 @@ class guiyihua(object):
             else:
                 image[:, :, :, i] = (image[:, :, :, i] - mean[i]) / std[i]
 
-        return {'image': image, 'label': label, 'idh': sample['idh'], 'radiomic': sample['radiomic']}
+        return {'image': image, 'label': label, 'idh': sample['idh'], 'grade': sample['grade']}
 
 class ToTensor(object):
     """Convert ndarrays in sample to Tensors."""
     def __call__(self, sample):
         image = sample['image']
         label = sample['label']
-
         image = np.ascontiguousarray(image.transpose(3, 0, 1, 2))
         image = torch.from_numpy(image).float()
-        return {'image': image, 'label': label,'idh':sample['idh'], 'radiomic':sample['radiomic']}
+        return {'image': image, 'label': label,'idh':sample['idh'], 'grade':sample['grade']}
 
 
 def transform(sample):
@@ -214,15 +202,13 @@ class BraTS(Dataset):
         if self.mode == 'train':
 
             image, label, idh,grade= pkload(path + 'idhgrade.pkl')
-            if not np.any(label != 0):
-             sample = {'image': image, 'label': label, 'idh':idh,'grade':grade }
-             sample = transform(sample)
-            return sample['image'], sample['label'], sample['idh'],sample['radiomic']
+            sample = {'image': image, 'label': label, 'idh':idh,'grade':grade }
+            sample = transform(sample)
+            return sample['image'], sample['label'], sample['idh'],sample['grade']
         elif self.mode == 'valid':
             image, label, idh, grade = pkload(path + 'idhgrade.pkl')
-            if not np.any(label != 0):
-             sample = {'image': image, 'label': label, 'idh': idh, 'grade': grade}
-             sample = transform_valid(sample)
+            sample = {'image': image, 'label': label, 'idh': idh, 'grade': grade}
+            sample = transform_valid(sample)
             return sample['image'], sample['label'], sample['idh'], sample['grade']
 
     def __len__(self):
