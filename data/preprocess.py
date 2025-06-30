@@ -82,23 +82,6 @@ class Random_Crop(object):
 
         H_max, W_max, D_max = image.shape[:3]
 
-        # 尝试多次裁剪，直到裁剪区域包含非零标签
-        for _ in range(100):  # 最多尝试10次
-            H = random.randint(0, max(0, H_max - 128))
-            W = random.randint(0, max(0, W_max - 128))
-            D = random.randint(0, max(0, D_max - 128))
-
-            image_crop = image[H:H + 128, W:W + 128, D:D + 128, ...]
-            label_crop = label[H:H + 128, W:W + 128, D:D + 128]
-
-            # 检查裁剪区域是否包含非零标签
-            if np.any(label_crop != 0):
-                break
-
-        # 如果经过多次尝试仍然没有非零标签，可以选择返回原始样本或其他策略
-        else:
-            return sample
-
         pad_h = max(0, 128 - image_crop.shape[0])
         pad_w = max(0, 128 - image_crop.shape[1])
         pad_d = max(0, 128 - image_crop.shape[2])
