@@ -238,7 +238,7 @@ def main_worker():
         dice_2s=[]
         optimizer.zero_grad()
         for i, data in enumerate(train_loader):
-            x, target, idh, grade, name = data
+            x, target, idh, grade = data
             x = x.cuda(args.local_rank, non_blocking=True).float()
             target = target.cuda(args.local_rank, non_blocking=True)
             idh=idh.cuda(args.local_rank, non_blocking=True)
@@ -342,7 +342,7 @@ def main_worker():
             nets['grade'].eval()
             nets['mtl'].eval()
             for i, data in enumerate(val_loader):
-                x, target, idh, grade, name = data
+                x, target, idh, grade = data
                 x = x.cuda(args.local_rank, non_blocking=True).float()
                 target = target.cuda(args.local_rank, non_blocking=True)
                 idh = idh.cuda(args.local_rank, non_blocking=True)
