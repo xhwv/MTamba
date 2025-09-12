@@ -274,16 +274,16 @@ class SMEM(nn.Module):
         self.mtc5 = MSCB(n=5, intc=8, outc=8)
         self.mtc3 = MSCB(n=3, intc=2, outc=8)
         self.upx = nn.ConvTranspose3d(
-            in_channels=24,  # 输入通道数，你可以根据实际情况修改
-            out_channels=1,  # 输出通道数，你可以根据实际情况修改
+            in_channels=24,  
+            out_channels=1,  
             kernel_size=3,
             stride=2,  # 步长设置为2可以使分辨率变为原来的两倍
             padding=1,  # 填充值设置为1，配合步长和核大小保证输出尺寸合适
             output_padding=1  # 额外的输出填充，确保输出尺寸正确
         )
         self.upy = nn.ConvTranspose3d(
-            in_channels=24,  # 输入通道数，你可以根据实际情况修改
-            out_channels=1,  # 输出通道数，你可以根据实际情况修改
+            in_channels=24,  
+            out_channels=1,  
             kernel_size=3,
             stride=2,  # 步长设置为2可以使分辨率变为原来的两倍
             padding=1,  # 填充值设置为1，配合步长和核大小保证输出尺寸合适
