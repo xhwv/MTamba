@@ -208,7 +208,7 @@ def main_worker():
         if not os.path.exists(checkpoint_dir):
             os.makedirs(checkpoint_dir)
     labels = [0, 1]  # 假设是二分类问题
-    idh_names = ['IDH野生型', 'IDH突变型']
+    idh_names = ['IDHwildtype', 'IDHmutant']
     grade_names = ['LGG', 'HGG']
     best_dice = 0.0
     best_idh_auc = 0.0
