@@ -27,8 +27,6 @@ parser = argparse.ArgumentParser()
 # Basic Information
 parser.add_argument('--user', default='UCSF', type=str)
 
-parser.add_argument('--experiment', default='TransBTS_Boundary', type=str)
-
 parser.add_argument('--date', default=local_time.split(' ')[0], type=str)
 
 parser.add_argument('--description',
@@ -63,8 +61,6 @@ parser.add_argument('--lr', default=0.0002, type=float)
 parser.add_argument('--weight_decay', default=1e-5, type=float)
 
 parser.add_argument('--amsgrad', default=True, type=bool)
-
-parser.add_argument('--criterion', default='softmax_dice', type=str)#softmax_dice
 
 parser.add_argument('--seed', default=1000, type=int)
 
