@@ -146,8 +146,8 @@ class ToTensor(object):
 
 def transform(sample):
     trans = transforms.Compose([
-        Random_Crop(),
         guiyihua(),
+        Random_Crop(),
         Random_Flip(),
         Random_intencity_shift(),
         ToTensor()
@@ -156,8 +156,8 @@ def transform(sample):
 
 def transform_valid(sample):
     trans = transforms.Compose([
-        Crop_val(),
         guiyihua(),
+        Crop_val(),
         ToTensor()
     ])
 
