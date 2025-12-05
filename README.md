@@ -21,7 +21,7 @@ Channel-Space Siamese Mamba Fusion: Fuses T2-FLAIR mismatch features with multi-
 
 Uncertainty Loss Optimization: Jointly optimizes glioma segmentation, IDH genotyping, and grading with an uncertainty loss.
 
-We validate MTamba on the UCSF-PDGM and BraTS2020 datasets, and our experimental results demonstrate that MTamba outperforms existing multi-task learning methods.
+We validate MTamba on the UCSF-PDGM and BraTS2020 datasets, and our experimental results demonstrate that MTamba outperforms existing multi-task learning methods. On the UCSF-PDGM dataset, the ACCs for glioma IDH genotyping and grading are 88.89% and 89.90%, respectively.
 
 **Datasets**
 
