@@ -518,20 +518,6 @@ class FocalLoss(nn.Module):
         else:
             return focal_loss
 
-
-def initialize_weights(m):
-    if isinstance(m, nn.Conv3d) or isinstance(m, nn.Linear):
-        nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
-        if m.bias is not None:
-            nn.init.constant_(m.bias, 0)
-def analyze_pred_labels(pred_labels):
-    # 获取 pred_labels 中的唯一值
-    unique_values, counts = torch.unique(pred_labels, return_counts=True)
-
-    # 打印唯一值及其对应的个数
-    for value, count in zip(unique_values.tolist(), counts.tolist()):
-        print(f"Value: {value}, Count: {count}")
-
 def evalution_metirc_boostrap(y_true, y_pred_score, y_pred, labels, target_names):
     y_true = np.array(y_true)
     y_pred_score = np.array(y_pred_score)
